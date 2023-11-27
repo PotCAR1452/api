@@ -1,17 +1,20 @@
 import express from 'express';
-import {PORT} from './config.js';
-
-import getRoutes from './getRouters.js';
-import postRoutes from './postRoutes.js';
-import putRoutes from './putRoutes.js';
+import {conn} from './db.js'
 
 const app = express();
 
-app.use(express.json());
-app.use(getRoutes);
-app.use(postRoutes);
-app.use(putRoutes);
+app.get('/', async (req, res) => {
+    
+    res.send('Hello World');
+})
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+app.get('/ping', async (req, res) => {
+
+    const result = await conn.query('select "hello" as Result')
+       res.json(result)
+       console.log('ping')
+       
+})
+
+ app.listen(3000)
+ console.log('server on port', 3000)
