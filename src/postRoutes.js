@@ -99,7 +99,7 @@ router.delete('/p/EliminarMueble', async (req, res) => {
  
  //consultas para insertar muebles
 router.post('/p/InsertarMuebles', async (req, res) => {
-    const { Nombre, Descripcion, Precio, Estado, Stock, idFotos, idCategoria, idColor, idMaterial } = req.body;
+    const { Nombre, Descripcion, Precio, Estado, Stock, imagenu, idCategoria, idColor, idMaterial } = req.body;
     try {
         const result = await conn.query('Call InsertarMuebles (?,?,?,?,?,?,?,?,?)', [Nombre, Descripcion, Precio, Estado, Stock, imagenu, idCategoria, idColor, idMaterial]);
         res.send('Mueble agregado exitosamente');
