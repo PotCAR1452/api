@@ -101,7 +101,7 @@ router.delete('/p/EliminarMueble', async (req, res) => {
 router.post('/p/InsertarMuebles', async (req, res) => {
     const { Nombre, Descripcion, Precio, Estado, Stock, idFotos, idCategoria, idColor, idMaterial } = req.body;
     try {
-        const result = await conn.query('Call InsertarMuebles (?,?,?,?,?,?,?,?,?)', [Nombre, Descripcion, Precio, Estado, Stock, URL, idCategoria, idColor, idMaterial]);
+        const result = await conn.query('Call InsertarMuebles (?,?,?,?,?,?,?,?,?)', [Nombre, Descripcion, Precio, Estado, Stock, imagenu, idCategoria, idColor, idMaterial]);
         res.send('Mueble agregado exitosamente');
     } catch (error) {
         console.error(error);
