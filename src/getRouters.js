@@ -59,4 +59,17 @@ router.get('/g/mostrarcategoria', async (req, res) => {
     }
 })
 
+router.get('/g/mostrarMateriales', async (req, res) => {
+    try {
+         res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        const result = await conn.query('select * from vwMateriales')
+        res.json(result[0])
+        console.log(result)
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al obtener datos');
+    }
+})
+
 export default router;
