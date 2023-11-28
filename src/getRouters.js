@@ -30,6 +30,8 @@ router.get('/g/vwMueblessemana', async (req, res) => {
 //vista para mostrar los mueble en la pagina de tienda 
 router.get('/g/MostrarMuebles', async (req, res) => {
     try {
+         res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const result = await conn.query('select * from MostrarMuebles')
         res.json(result[0])
         console.log(result)
