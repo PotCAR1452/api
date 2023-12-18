@@ -38,7 +38,7 @@ router.post('/p/spInsertarUsuario', async (req, res) => {
 router.post('/p/AutenticarUsuario', async (req, res) => {
     const { Usuario, Clave } = req.body;
     try {
-        res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
+        res.header("Access-Control-Allow-Origin", "*"); // O "*" para permitir cualquier origen
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const result = await conn.query('CALL SP_AutenticarUsuario (?,?)', [Usuario, Clave]);
         res.send(result[0]);
