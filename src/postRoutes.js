@@ -3,7 +3,7 @@ import {conn} from './db.js';
 
 
 const router = express.Router();
-router.use(cors());
+
 
 //consultas registro usuarios
 //verifica estado de usuario
