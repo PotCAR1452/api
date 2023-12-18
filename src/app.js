@@ -1,43 +1,42 @@
 import express from 'express';
-import cors from 'cors';
 import { conn } from './db.js';
+import getRouter from './getRouters.js'; // Importa el enrutador getRouter.js
+import postRouter from './postRoutes.js'; // Importa el enrutador postRouter.js
 import { PORT } from './config.js';
-import getRouter from './getRouters.js';
-import postRouter from './postRoutes.js';
+import cors from 'cors'; 
 
 const app = express();
-app.use(cors());
 
+// Middleware para analizar JSON en solicitudes POST
 app.use(express.json());
 
+// Asocia los enrutadores a las rutas
 app.use('/', getRouter);
 app.use('/crud', postRouter);
 
+// Ruta raíz
 app.get('/', async (req, res) => {
     res.send('Hello World');
 });
 
+// Ruta de ping para comprobar la conexión
 app.get('/ping', async (req, res) => {
     const result = await conn.query('select * from tbUsuarios ')
     res.json(result[0]);
     console.log(result);
 });
 
+// Ruta para comprobar la conexión a la base de datos
 app.get('/check-connection', async (req, res) => {
     try {
         const result = await conn.query('SELECT 1');
-        res.json({ status: 'success', message: 'Conexión exitosa' });
+        res.send('coneccion exitosa');
     } catch (error) {
         console.error(error);
-        res.status(500).json({ status: 'error', message: 'Error en la conexión a la base de datos' });
+        res.status(500).send('Error coneccion a la base de datos');
     }
 });
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-});
-
-process.on('SIGINT', () => {
-    conn.end();
-    process.exit();
 });
