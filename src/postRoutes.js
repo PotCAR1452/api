@@ -3,11 +3,14 @@ import {conn} from './db.js';
 const router = express.Router();
 
 
+
 //consultas registro usuarios
 //verifica estado de usuario
 router.post('/p/VerificarDuplicado', async (req, res) => {
     const { user } = req.body;
     try {
+        res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const result = await conn.query('CALL VerificarDuplicado (?)', [user]);
         res.send(result[0]);
     } catch (error) {
@@ -20,6 +23,8 @@ router.post('/p/VerificarDuplicado', async (req, res) => {
 router.post('/p/spInsertarUsuario', async (req, res) => {
     const { Usuario, Clave, Nombre, Apellido, correo } = req.body;
     try {
+        res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const result = await conn.query('CALL spInsertarUsuario (?,?,?,?,?)', [Usuario, Clave, Nombre, Apellido, correo]);
         res.send(result[0]);
     } catch (error) {
@@ -33,6 +38,8 @@ router.post('/p/spInsertarUsuario', async (req, res) => {
 router.post('/p/AutenticarUsuario', async (req, res) => {
     const { Usuario, Clave } = req.body;
     try {
+        res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const result = await conn.query('CALL SP_AutenticarUsuario (?,?)', [Usuario, Clave]);
         res.send(result[0]);
     } catch (error) {
@@ -47,6 +54,8 @@ router.post('/p/AutenticarUsuario', async (req, res) => {
 router.post('/p/ValidarCarrito', async (req, res) => {
     const { p_idusuario} = req.body;
     try {
+        res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const result = await conn.query(' CALL SP_ValidarCarrito (?);', [p_idusuario]);
         res.send(result[0]);
     } catch (error) {
@@ -60,6 +69,8 @@ router.post('/p/ValidarCarrito', async (req, res) => {
 router.post('/p/spInsertarCarrito', async (req, res) => {
     const { p_idusuario,id_mueble,cantidad} = req.body;
     try {
+        res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const result = await conn.query(' CALL spInsertarCarrito (?,?,?);', [p_idusuario,id_mueble,cantidad]);
         res.send(result[0]);
     } catch (error) {
@@ -72,6 +83,8 @@ router.post('/p/spInsertarCarrito', async (req, res) => {
 router.delete('/p/spInsertarCarrito', async (req, res) => {
     const { p_idusuario,id_mueble} = req.body;
     try {
+        res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const result = await conn.query('CALL spEliminarCarrito (?,?);', [p_idusuario,id_mueble]);
         res.send(result[0]);
     } catch (error) {
@@ -86,6 +99,8 @@ router.delete('/p/spInsertarCarrito', async (req, res) => {
 router.delete('/p/EliminarMueble', async (req, res) => {
     const { id_mueble} = req.body;
     try {
+        res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const result = await conn.query('CALL EliminarMueble (?);', [id_mueble]);
         res.send(result[0]);
     } catch (error) {
@@ -99,9 +114,11 @@ router.delete('/p/EliminarMueble', async (req, res) => {
  
  //consultas para insertar muebles
 router.post('/p/InsertarMuebles', async (req, res) => {
-    const { Nombre, Descripcion, Precio, Estado, Stock, imagenu, idCategoria, idColor, idMaterial } = req.body;
+    const { Nombre, Descripcion, Precio, Estado, Stock, idFotos, idCategoria, idColor, idMaterial } = req.body;
     try {
-        const result = await conn.query('Call InsertarMuebles (?,?,?,?,?,?,?,?,?)', [Nombre, Descripcion, Precio, Estado, Stock, imagenu, idCategoria, idColor, idMaterial]);
+        res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        const result = await conn.query('Call InsertarMuebles (?,?,?,?,?,?,?,?,?)', [Nombre, Descripcion, Precio, Estado, Stock, URLL, idCategoria, idColor, idMaterial]);
         res.send('Mueble agregado exitosamente');
     } catch (error) {
         console.error(error);
@@ -114,6 +131,8 @@ router.post('/p/InsertarMuebles', async (req, res) => {
 router.put('/p/ActualizarMueble', async (req, res) => {
     const { Nombre, Descripcion, Precio, Estado, Stock, idFotos, idCategoria, idColor, idMaterial } = req.body;
     try {
+        res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const result = await conn.query('Call ActualizarMueble (?,?,?,?,?,?,?,?,?)', [Nombre, Descripcion, Precio, Estado, Stock, idFotos, idCategoria, idColor, idMaterial]);
         res.send('Mueble agregado exitosamente');
     } catch (error) {
@@ -121,11 +140,5 @@ router.put('/p/ActualizarMueble', async (req, res) => {
         res.status(500).send('Error adding mueble to database');
     }
 });
-
-//consultas para actualizar inf del muebles
-
-
-
-
 
 export default router;
