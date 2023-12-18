@@ -1,8 +1,9 @@
 import express from 'express';
 import {conn} from './db.js';
+
+
 const router = express.Router();
-
-
+router.use(cors());
 
 //consultas registro usuarios
 //verifica estado de usuario
@@ -38,7 +39,7 @@ router.post('/p/spInsertarUsuario', async (req, res) => {
 router.post('/p/AutenticarUsuario', async (req, res) => {
     const { Usuario, Clave } = req.body;
     try {
-        res.header("Access-Control-Allow-Origin", "*"); // O "*" para permitir cualquier origen
+        res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // O "*" para permitir cualquier origen
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         const result = await conn.query('CALL SP_AutenticarUsuario (?,?)', [Usuario, Clave]);
         res.send(result[0]);
@@ -140,5 +141,7 @@ router.put('/p/ActualizarMueble', async (req, res) => {
         res.status(500).send('Error adding mueble to database');
     }
 });
+
+//consultas para actualizar inf del muebles
 
 export default router;
