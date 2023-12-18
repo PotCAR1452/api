@@ -3,7 +3,6 @@ import { conn } from './db.js';
 import getRouter from './getRouters.js'; // Importa el enrutador getRouter.js
 import postRouter from './postRoutes.js'; // Importa el enrutador postRouter.js
 import { PORT } from './config.js';
-import cors from 'cors'; 
 
 const app = express();
 
