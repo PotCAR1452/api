@@ -1,13 +1,12 @@
-
-"cors": "^2.8.5",{
+{
   "name": "nodejs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-     "dev" : "nodemon src/app.js",
-     "start" : "node src/app.js"
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
   },
   "keywords": [],
   "author": "",
